@@ -16,9 +16,9 @@ function App() {
 
 
     return (
-        <div>
+        <div className="App">
             <Popup
-                modals
+                modal
                 trigger={<button>Open Signature Pad</button>}
                 closeOnDocumentClick={false}
             >
@@ -47,37 +47,40 @@ function App() {
                 <Pdf targetRef={ref} filename="code-example.pdf">
                     {({toPdf}) => <button onClick={toPdf}>Generate Pdf</button>}
                 </Pdf>
-                <div className="pdfImage" ref={ref}
-                     style={{backgroundImage: `url("https://storage.googleapis.com/legaltech-esign-develop/test/sample-pdf.jpg")`}}>
+                <Draggable>
+                    <Resizable
+                        defaultSize={{
+                            width: 200,
+                            height: 360
+                        }}
+                        lockAspectRatio={true}
+                    >
+                        <input type="text" id="fname" name="fname">
+                        </input>
+                    </Resizable>
+                </Draggable>
+                {imageURL ? (
                     <Draggable>
                         <Resizable
                             defaultSize={{
                                 width: 200,
                                 height: 360
                             }}
+                            style={{
+                                background: `url(${imageURL})`,
+                                backgroundSize: 'contain',
+                                backgroundRepeat: 'no-repeat'
+                            }}
                             lockAspectRatio={true}
                         >
-                            <input type="text" id="fname" name="fname">
-                            </input>
                         </Resizable>
                     </Draggable>
-                    {imageURL ? (
-                        <Draggable>
-                            <Resizable
-                                defaultSize={{
-                                    width: 200,
-                                    height: 360
-                                }}
-                                style={{
-                                    background: `url(${imageURL})`,
-                                    backgroundSize: 'contain',
-                                    backgroundRepeat: 'no-repeat'
-                                }}
-                                lockAspectRatio={true}
-                            >
-                            </Resizable>
-                        </Draggable>
-                    ) : null}
+                ) : null}
+                <div className="pdfImage" ref={ref}
+                    style={{backgroundImage: `url("https://storage.googleapis.com/legaltech-esign-develop/test/sample-pdf.jpg")`}}>
+                </div>
+                <div className="pdfImage" ref={ref}
+                     style={{backgroundImage: `url("https://storage.googleapis.com/legaltech-esign-develop/test/sample-pdf.jpg")`}}>
                 </div>
             </div>
         </div>
